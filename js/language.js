@@ -6,3 +6,5 @@ function selectLanguage(language) {
     // Move to the login page
     window.location.href = "login.html";
 }
+
+window.selectLanguage = selectLanguage;

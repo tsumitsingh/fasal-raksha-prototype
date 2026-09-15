@@ -304,3 +304,8 @@ function closeAlert() {
     document.getElementById("custom-alert").style.display =
         "none";
 }
+
+window.loginUser = loginUser;
+window.showSignup = showSignup;
+window.goBack = goBack;
+window.closeAlert = closeAlert;
