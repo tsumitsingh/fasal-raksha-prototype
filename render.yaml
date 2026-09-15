@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: fasalraksha-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: FRONTEND_ORIGINS
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET
+        value: crop-images
+      - key: HF_TOKEN
+        sync: false
+      - key: HF_VISION_MODEL
+        value: linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification
+      - key: HF_CHAT_MODEL
+        value: Qwen/Qwen2.5-7B-Instruct
+      - key: TAVILY_API_KEY
+        sync: false

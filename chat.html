@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fasal Raksha - Crop Assistant</title>
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+    <main class="chat-page">
+        <header class="chat-header">
+            <a class="back-link" href="dashboard.html" aria-label="Back to dashboard">←</a>
+            <div class="brand">
+                <img src="assets/fasal-logo.png" alt="Fasal Raksha logo">
+                <div>
+                    <h1 id="chat-title">Crop Assistant</h1>
+                    <p id="chat-subtitle">Evidence-based help for your crop</p>
+                </div>
+            </div>
+            <span class="status-dot" title="Assistant status"></span>
+        </header>
+
+        <section class="chat-layout">
+            <aside class="crop-panel">
+                <p id="photo-label" class="eyebrow">Your crop photo</p>
+                <img id="crop-preview" class="crop-preview" alt="Uploaded crop">
+                <div class="diagnosis" id="diagnosis">
+                    <span class="loading-dot"></span>
+                    <span id="loading-text">Reading the crop image...</span>
+                </div>
+            </aside>
+
+            <section class="conversation" aria-label="Crop assistant conversation">
+                <div id="messages" class="messages" aria-live="polite"></div>
+                <form id="chat-form" class="composer">
+                    <input id="question" type="text" placeholder="Ask about treatment, dosage, or prevention..." autocomplete="off" required>
+                    <button type="submit" aria-label="Send question">Send</button>
+                </form>
+            </section>
+        </section>
+    </main>
+    <script>window.FASAL_API_URL = "%VITE_API_URL%";</script>
+    <script src="js/chat.js"></script>
+</body>
+</html>

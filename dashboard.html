@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Fasal Raksha - Dashboard</title>
+
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <main class="dashboard">
+        <!--<img src = "images/goofyahh.png" id = "goofy" class = "draggable" alt = "Goofy Image">
+
+            <img src = "images/dumahhdog.jpg" id = "goofy2" class = "draggable" alt = "goody ahh 2">-->
+
+        <!-- Header -->
+        <header class="dashboard-header">
+
+            <div class="brand">
+                <img src="assets/fasal-logo.png"
+                     alt="Fasal Raksha Logo">
+
+                <h1>Fasal Raksha</h1>
+            </div>
+
+            <button class="profile-button">
+                <img src = "images/profile.jpg" alt = "Profile Image">
+            </button>
+
+        </header>
+
+
+
+        <!-- Welcome -->
+        <section class="welcome">
+
+            <h2><span id="welcome-title">Hello, kisan</span> <span id="farmer-name">Farmer</span></h2>
+
+            <p id="welcome-subtitle">
+                Protect your crops with smarter technology.
+            </p>
+
+        </section>
+
+
+        <!-- Scan Crop -->
+        <section class="scan-card">
+
+            <div class="scan-icon">
+                <img src = "images/scanplanat.jpg"  alt = "Scan Icon">
+            </div>
+
+            <div id="pending-photo" class="pending-photo" hidden>
+                <img id="pending-photo-preview" alt="Selected crop preview">
+                <p>Photo ready. Tap Start Scan to analyze it.</p>
+            </div>
+
+            <h2 id="scan-title">Scan Your Crop</h2>
+
+            <p id="scan-description">
+                Take a photo of your crop to detect
+                diseases and pests.
+            </p>
+
+            <button id="scan-button" type="button">
+                Open Camera
+            </button>
+
+            <button id="upload-button" class="secondary-scan-button" type="button">
+                Upload Image Instead
+            </button>
+            <input id="crop-photo" type="file" accept="image/*" hidden>
+            <p id="scan-status" class="scan-status" aria-live="polite"></p>
+
+        </section>
+
+
+        <!-- Quick Access -->
+        <section class="quick-section">
+
+            <h2>Quick Access</h2>
+
+            <div class="quick-grid">
+
+                <button class="quick-card">
+                    <img src = "images/plantcute.png" alt = "My Crops Icon">
+                    <p>My Crops</p>
+                </button>
+
+                <button id="history-button" class="quick-card" type="button">
+                    <span>📊</span>
+                    <p id="history-title">Scan History</p>
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section id="history-panel" class="history-panel" hidden>
+            <div class="history-heading">
+                <h2 id="history-heading">Scan History</h2>
+                <button id="close-history" type="button" aria-label="Close history">×</button>
+            </div>
+            <div id="history-list" class="history-list"></div>
+        </section>
+
+    </main>
+
+    <div id="camera-modal" class="camera-modal" hidden>
+        <div class="camera-dialog" role="dialog" aria-modal="true" aria-labelledby="camera-title">
+            <div class="camera-dialog-header">
+                <h2 id="camera-title">Capture crop photo</h2>
+                <button id="close-camera" class="close-camera" type="button" aria-label="Close camera">×</button>
+            </div>
+            <video id="camera-preview" autoplay playsinline></video>
+            <canvas id="camera-canvas" hidden></canvas>
+            <p id="camera-error" class="camera-error" aria-live="polite"></p>
+            <button id="capture-button" class="capture-button" type="button">Use This Photo</button>
+        </div>
+    </div>
+
+
+    <script>window.FASAL_API_URL = "%VITE_API_URL%";</script>
+    <script src="js/dashboard.js"></script>
+
+</body>
+
+</html>
