@@ -22,5 +22,7 @@ services:
         value: linkanjarad/mobilenet_v2_1.0_224-plant-disease-identification
       - key: HF_CHAT_MODEL
         value: Qwen/Qwen2.5-7B-Instruct
+      - key: AI_RESPONSE_LANGUAGE
+        value: hi
       - key: TAVILY_API_KEY
         sync: false

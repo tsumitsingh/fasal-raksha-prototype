@@ -74,6 +74,10 @@ def response_language(language: str) -> str:
     return "hi" if language.lower().startswith("hi") else "en"
 
 
+def ai_response_language() -> str:
+    return response_language(os.getenv("AI_RESPONSE_LANGUAGE", "hi"))
+
+
 def localized_disease(disease: str, language: str) -> str:
     if language != "hi":
         return disease
@@ -331,7 +335,7 @@ async def create_scan(image: UploadFile = File(...), language: str = "en", user:
             temporary_image.write(image_bytes)
             temporary_image_path = Path(temporary_image.name)
         disease = detect_disease(temporary_image_path)
-        language = response_language(language)
+        language = ai_response_language()
         first_question = "मुझे सबसे पहले क्या करना चाहिए?" if language == "hi" else "What should I do first?"
         answer, sources = make_answer(disease, first_question, language)
     except RuntimeError as error:
@@ -390,6 +394,6 @@ def chat(scan_id: str, request: ChatRequest, user: dict[str, Any] = Depends(curr
         raise HTTPException(status_code=404, detail="Scan not found. Please upload the image again.")
     if not request.question.strip():
         raise HTTPException(status_code=400, detail="Please enter a question.")
-    language = response_language(request.language)
+    language = ai_response_language()
     answer, sources = make_answer(scan["disease"], request.question.strip(), language)
     return {"answer": answer, "sources": sources}
