@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: fasalraksha-api
+    name: fasalraksha-fullstack
     runtime: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    dockerfilePath: ./Dockerfile.render
+    dockerContext: .
     healthCheckPath: /health
     envVars:
       - key: PORT

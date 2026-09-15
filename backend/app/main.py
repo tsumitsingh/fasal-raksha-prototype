@@ -7,6 +7,8 @@ from typing import Any
 from dotenv import load_dotenv
 from fastapi import Depends, FastAPI, File, Header, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from huggingface_hub import InferenceClient
 from langchain_community.utilities.tavily_search import TavilySearchAPIWrapper
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
@@ -16,6 +18,7 @@ from supabase import Client, create_client
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+FRONTEND_DIR = BASE_DIR.parent / "frontend"
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_SERVICE_ROLE_KEY = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
 supabase: Client | None = (
@@ -39,6 +42,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+if FRONTEND_DIR.exists():
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="frontend-assets")
+    app.mount("/css", StaticFiles(directory=FRONTEND_DIR / "css"), name="frontend-css")
+    app.mount("/images", StaticFiles(directory=FRONTEND_DIR / "images"), name="frontend-images")
+    app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="frontend-js")
 
 
 class ChatRequest(BaseModel):
@@ -238,6 +246,20 @@ def health() -> dict[str, Any]:
         "database_schema_ready": schema_ready,
         "otp_enabled": False,
     }
+
+
+@app.get("/", include_in_schema=False)
+def frontend_home() -> FileResponse:
+    if not FRONTEND_DIR.exists():
+        raise HTTPException(status_code=404, detail="Frontend is not bundled in this deployment.")
+    return FileResponse(FRONTEND_DIR / "index.html")
+
+
+@app.get("/{page}.html", include_in_schema=False)
+def frontend_page(page: str) -> FileResponse:
+    if page not in {"index", "login", "dashboard", "chat"} or not FRONTEND_DIR.exists():
+        raise HTTPException(status_code=404, detail="Page not found.")
+    return FileResponse(FRONTEND_DIR / f"{page}.html")
 
 
 @app.post("/api/auth/signup")
