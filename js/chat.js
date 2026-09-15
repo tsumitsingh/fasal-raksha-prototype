@@ -1,4 +1,7 @@
-const API_URL = window.FASAL_API_URL || "http://localhost:8000";
+const configuredApiUrl = window.FASAL_API_URL;
+const API_URL = configuredApiUrl && !configuredApiUrl.includes("%")
+    ? configuredApiUrl.replace(/\/$/, "")
+    : "http://localhost:8000";
 const scanId = new URLSearchParams(window.location.search).get("scan_id");
 const messages = document.getElementById("messages");
 const diagnosis = document.getElementById("diagnosis");

@@ -1,4 +1,7 @@
-const API_URL = window.FASAL_API_URL || "http://localhost:8000";
+const configuredApiUrl = window.FASAL_API_URL;
+const API_URL = configuredApiUrl && !configuredApiUrl.includes("%")
+    ? configuredApiUrl.replace(/\/$/, "")
+    : "http://localhost:8000";
 const accessToken = localStorage.getItem("fasal_access_token");
 const language = localStorage.getItem("language") || "en";
 const farmerName = localStorage.getItem("farmer_name") || "Farmer";

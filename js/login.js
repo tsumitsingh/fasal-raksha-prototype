@@ -2,7 +2,10 @@
 const language = localStorage.getItem("language") || "en";
 
 
-const API_URL = window.FASAL_API_URL || "http://localhost:8000";
+const configuredApiUrl = window.FASAL_API_URL;
+const API_URL = configuredApiUrl && !configuredApiUrl.includes("%")
+    ? configuredApiUrl.replace(/\/$/, "")
+    : "http://localhost:8000";
 let isRegisterMode = false;
 
 // =========================
@@ -296,11 +299,6 @@ function showAlert(title, message, icon = "⚠️") {
 }
 
 
-function closeAlert() {
-
-    document.getElementById("custom-alert").style.display =
-        "none";
-}
 function closeAlert() {
 
     document.getElementById("custom-alert").style.display =
