@@ -44,9 +44,6 @@ app.add_middleware(
 )
 if FRONTEND_DIR.exists():
     app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="frontend-assets")
-    app.mount("/css", StaticFiles(directory=FRONTEND_DIR / "css"), name="frontend-css")
-    app.mount("/images", StaticFiles(directory=FRONTEND_DIR / "images"), name="frontend-images")
-    app.mount("/js", StaticFiles(directory=FRONTEND_DIR / "js"), name="frontend-js")
 
 
 class ChatRequest(BaseModel):
